@@ -61,11 +61,13 @@ class SQLTools {
 
         try
         {
-            $pdo->commit();
+
             $sql = $command->getSql();
             if ($this->debug) echo $sql;
             $stmt = $pdo->prepare($sql);
             $stmt->execute($data);
+            
+            $pdo->commit();
 
             return $stmt;
         }
