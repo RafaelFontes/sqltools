@@ -67,9 +67,8 @@ class SQLTools {
             $stmt = $pdo->prepare($sql);
             $stmt->execute($data);
 
-
             $pdo->commit();
-            
+
             return $stmt;
         }
         catch(\PDOException $e)
