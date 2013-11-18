@@ -66,7 +66,7 @@ class SQLTools {
             if ($this->debug) echo $sql;
             $stmt = $pdo->prepare($sql);
             $stmt->execute($data);
-            
+
             $pdo->commit();
 
             return $stmt;
