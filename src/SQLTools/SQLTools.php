@@ -15,7 +15,17 @@ class SQLTools {
      */
     private $config;
 
-    private $debug=true;
+    public $debug=false;
+
+    static public function getConfig()
+    {
+        return self::getInstance()->getSqlConfig();
+    }
+
+    public function getSqlConfig()
+    {
+        return $this->config;
+    }
 
     /**
      * @param SQLConfig $config
@@ -43,9 +53,15 @@ class SQLTools {
      * @param SQLConfig $config
      * @return SQLTools
      */
-    static public function configure(SQLConfig &$config)
+    static public function configure(SQLConfig $config)
     {
         return self::getInstance($config);
+    }
+
+    static public function getConnection()
+    {
+        $self = self::getInstance();
+        return new \PDO($self->config->getConnectionString(), $self->config->getUser(), $self->config->getPwd());
     }
 
     /**
@@ -55,7 +71,7 @@ class SQLTools {
      */
     private function exec(ICommand $command, array $data = null)
     {
-        $pdo = new \PDO($this->config->getConnectionString(), $this->config->getUser(), $this->config->getPwd());
+        $pdo = $this->getConnection();
 
         $pdo->beginTransaction();
 
@@ -63,7 +79,7 @@ class SQLTools {
         {
 
             $sql = $command->getSql();
-            if ($this->debug) echo $sql;
+            if ($this->debug) echo $sql."\n";
             $stmt = $pdo->prepare($sql);
             $stmt->execute($data);
 

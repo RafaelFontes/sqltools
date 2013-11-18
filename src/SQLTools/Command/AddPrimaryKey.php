@@ -15,5 +15,4 @@ class AddPrimaryKey extends AlterTable {
     {
         return "PRIMARY KEY ({$this->fieldName});";
     }
-
-} 
+}
