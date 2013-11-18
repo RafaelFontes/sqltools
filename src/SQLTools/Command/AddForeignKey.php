@@ -23,7 +23,7 @@ class AddForeignKey extends AlterTable {
     {
         return "CONSTRAINT " . $this->fkName . "
                 FOREIGN KEY ({$this->localField})
-                REFERENCES " . $this->foreignTable . "({$this->foreignField});";
+                REFERENCES " . $this->foreignTable . "({$this->foreignField})";
     }
 
 } 

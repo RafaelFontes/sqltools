@@ -13,10 +13,11 @@ abstract class AlterTable implements ICommand {
 
     public function getSql()
     {
-        $sql = "ALTER TABLE ";
-        $sql .= $this->table . " {$this->$changeType} ";
-
-        $this->getWhatToAdd() . ";";
+        return "ALTER TABLE " .
+        $this->table .
+        " {$this->changeType} " .
+        $this->getWhatToAdd() .
+        ";";
     }
 
     abstract protected function getWhatToAdd();
