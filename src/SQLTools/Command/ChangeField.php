@@ -25,7 +25,7 @@ class ChangeField extends AlterTable {
 
     protected function getWhatToAdd()
     {
-        return $this->fieldToChange . $this->field->__toString();
+        return $this->fieldToChange . " " . $this->field->__toString();
     }
 
 } 
