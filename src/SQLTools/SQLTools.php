@@ -3,6 +3,7 @@
 namespace SQLTools;
 
 use SQLTools\Base\ICommand;
+use SQLTools\Command\AddForeignKey;
 use SQLTools\Command\CreateDataBase;
 use SQLTools\Command\CreateTable;
 
@@ -103,7 +104,7 @@ class SQLTools {
      */
     static public function execute(ICommand $command, array $data=null)
     {
-       return self::getInstance()->exec($command, $data);
+        return self::getInstance()->exec($command, $data);
     }
 
     /**
@@ -130,4 +131,18 @@ class SQLTools {
     {
         return self::execute(new CreateTable($table, $fields, $engine, $charset, $isTemporary, $createIfNotExists));
     }
-} 
+
+    /**
+     * @param $table
+     * @param $localField
+     * @param $foreignTable
+     * @param $foreignField
+     * @param null $name
+     * @return null|\PDOStatement
+     */
+    static public function setRelation($table, $localField, $foreignTable, $foreignField, $name = null)
+    {
+        return self::execute(new AddForeignKey($table, $localField, $foreignTable, $foreignField, $name));
+    }
+
+}
